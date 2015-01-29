@@ -44,7 +44,9 @@ public class BallControl : MonoBehaviour {
 				if (player1LastHit == true){
 				LoseTrigger.paddle1Frozen = true;
 				AudioSource.PlayClipAtPoint(wrongPaddleHit, coll.gameObject.transform.position);
-				Instantiate(wrongPaddleHitSpark,coll.transform.position, Quaternion.identity);
+				GameObject wrongPaddleSpark = Instantiate(wrongPaddleHitSpark,coll.transform.position, Quaternion.identity) as GameObject;
+				LoseTrigger.player1Score = LoseTrigger.player1Score - 5;
+				Destroy(wrongPaddleSpark.gameObject, wrongPaddleSpark.particleSystem.duration);
 				}
 				if (player1LastHit == false){
 				AudioSource.PlayClipAtPoint(paddleHitSound, coll.gameObject.transform.position);
@@ -56,7 +58,9 @@ public class BallControl : MonoBehaviour {
 				if (player2LastHit == true){
 					LoseTrigger.paddle2Frozen = true;
 					AudioSource.PlayClipAtPoint(wrongPaddleHit, coll.gameObject.transform.position);
-					Instantiate(wrongPaddleHitSpark,coll.transform.position, Quaternion.identity);
+					GameObject wrongPaddleSpark = Instantiate(wrongPaddleHitSpark,coll.transform.position, Quaternion.identity) as GameObject;
+					LoseTrigger.player2Score = LoseTrigger.player2Score - 5;
+					Destroy(wrongPaddleSpark.gameObject, wrongPaddleSpark.particleSystem.duration);
 				}
 				if (player2LastHit == false){
 					AudioSource.PlayClipAtPoint(paddleHitSound, coll.gameObject.transform.position);
@@ -65,6 +69,16 @@ public class BallControl : MonoBehaviour {
 				player2LastHit = true;
 			}
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D trigger){
+	 if (trigger.gameObject.tag == "P1Back") {
+			LoseTrigger.ghostModeP1Active = true;
+			Debug.Log("P1Back hit");
+				} else if (trigger.gameObject.tag == "P2Back") {
+			LoseTrigger.ghostModeP2Active = true;
+			Debug.Log("P2Back hit");
+				}
 	}
 }
 

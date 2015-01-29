@@ -36,6 +36,8 @@ public class LoseTrigger : MonoBehaviour {
 	public float paddle1FrozenTime;
 	public float paddle2FrozenTime;
 	public float paddleFrozenTimeSetPoint;
+	public bool ghostModeP1Active;
+	public bool ghostModeP2Active;
 
 
 	void Start () {
@@ -65,6 +67,8 @@ public class LoseTrigger : MonoBehaviour {
 		paddle2FrozenTime = paddleFrozenTimeSetPoint;
 		paddle1Frozen = false;
 		paddle2Frozen = false;
+		ghostModeP1Active = false;
+		ghostModeP2Active = false;
 						
 	}
 	
@@ -85,6 +89,7 @@ void OnTriggerEnter2D(Collider2D collider){
 					player1Wins = false;
 					player2Wins = false;
 				}
+			Destroy(collider.gameObject);
 			StartCoroutine (CountdownToRestart ());
 			}
 		}
@@ -117,7 +122,12 @@ void Update(){
 		powerUpSpawnCooldown -= Time.deltaTime;
 		player1_CountText.text = player1Score.ToString();
 		player2_CountText.text = player2Score.ToString();
-
+		if (player1Score <= 0) {
+			player1Score = 0;	
+		}
+		if (player2Score <= 0) {
+			player2Score = 0;	
+		}
 		if (powerUpSpawnCooldown <= 0) {
 					PowerUpSpawn ();
 				}
@@ -125,8 +135,8 @@ void Update(){
 
 
 public void BallSpawn(int numberReq){
-		SpawnSpot mySpawnSpot = spawnSpots [Random.Range (0, spawnSpots.Length)];
 		for (int i = numberReq; i > 0; i--){
+		SpawnSpot mySpawnSpot = spawnSpots [Random.Range (0, spawnSpots.Length)];
 		Instantiate(gameBall, mySpawnSpot.transform.position,Quaternion.identity);
 	}
 		ballCount = ballCount + numberReq;
@@ -136,9 +146,13 @@ void PowerUpSpawn(){
 		powerUpSpawnCooldown = 5;
 		powerUpSpawnRNG = Random.Range (0, 10);
 		PowerUpSpawn thisPowerUpSpawnSpot = powerUpSpawnSpots [Random.Range (0, powerUpSpawnSpots.Length)];
-		if (powerUpSpawnRNG == 1) {
+		switch (powerUpSpawnRNG) {
+		case(1):
 			Instantiate (powerUpMultiBall, thisPowerUpSpawnSpot.transform.position, Quaternion.identity);
+			break;
 		}
+	
+
 		powerUpSpawnRNG = Random.Range (0, 10);
 	}
 }

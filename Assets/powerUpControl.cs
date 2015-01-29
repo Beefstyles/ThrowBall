@@ -14,13 +14,21 @@ public class powerUpControl : MonoBehaviour {
 			
 	void OnTriggerEnter2D(Collider2D trigger){
 		if (trigger.gameObject.tag == "Player1" || trigger.gameObject.tag == "Player2") {
-		if(gameObject.tag == "MultiBall"){
-		LoseTrigger.BallSpawn(1);
+		switch (gameObject.tag){
+			case("MultiBall"):
+			LoseTrigger.BallSpawn(1);
+			break;
+			case("ExtendPaddle"):
+			if (trigger.gameObject.tag == "Player1"){
+			//Losetrigger.player1Paddle.transform.scale = (10);
+				}
+			break;
+			}
 		AudioSource.PlayClipAtPoint(powerUpCollect, trigger.gameObject.transform.position);
 		}
+
 		Destroy(this.gameObject);
 		}
 	}
 	
-}
 
