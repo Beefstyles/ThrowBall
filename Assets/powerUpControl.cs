@@ -20,7 +20,10 @@ public class powerUpControl : MonoBehaviour {
 			break;
 			case("ExtendPaddle"):
 			if (trigger.gameObject.tag == "Player1"){
-			//Losetrigger.player1Paddle.transform.scale = (10);
+				LoseTrigger.player1Paddle.transform.localScale = new Vector3 (3F, 0F, 0F);
+				}
+				else if (trigger.gameObject.tag == "Player2"){
+					LoseTrigger.player2Paddle.transform.localScale = new Vector3 (3F, 0F, 0F);
 				}
 			break;
 			}
