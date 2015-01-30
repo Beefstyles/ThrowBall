@@ -46,14 +46,15 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BallControl.cs" />
-     <Compile Include="Assets\LoseTrigger.cs" />
-     <Compile Include="Assets\PowerUpControlCentre.cs" />
-     <Compile Include="Assets\PowerUpSpawn.cs" />
-     <Compile Include="Assets\PowerUpSpawnSpots.cs" />
-     <Compile Include="Assets\SpawnSpot.cs" />
-     <Compile Include="Assets\playerControl.cs" />
-     <Compile Include="Assets\powerUpControl.cs" />
+     <Compile Include="Assets\Scripts\BallControl.cs" />
+     <Compile Include="Assets\Scripts\LoseTrigger.cs" />
+     <Compile Include="Assets\Scripts\PowerUpControlCentre.cs" />
+     <Compile Include="Assets\Scripts\PowerUpSpawn.cs" />
+     <Compile Include="Assets\Scripts\PowerUpSpawnSpots.cs" />
+     <Compile Include="Assets\Scripts\SpawnSpot.cs" />
+     <Compile Include="Assets\Scripts\UI\RoundCounter.cs" />
+     <Compile Include="Assets\Scripts\playerControl.cs" />
+     <Compile Include="Assets\Scripts\powerUpControl.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Yggdrasil/Documents/GitHub/ThrowBall/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
