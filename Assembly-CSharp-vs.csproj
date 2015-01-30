@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\BallControl.cs" />
      <Compile Include="Assets\LoseTrigger.cs" />
+     <Compile Include="Assets\PowerUpControlCentre.cs" />
      <Compile Include="Assets\PowerUpSpawn.cs" />
      <Compile Include="Assets\PowerUpSpawnSpots.cs" />
      <Compile Include="Assets\SpawnSpot.cs" />

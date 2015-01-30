@@ -38,6 +38,8 @@ public class LoseTrigger : MonoBehaviour {
 	public float paddleFrozenTimeSetPoint;
 	public bool ghostModeP1Active;
 	public bool ghostModeP2Active;
+	public GameObject player1PaddleGO;
+	public GameObject player2PaddleGO;
 
 
 	void Start () {
@@ -60,8 +62,8 @@ public class LoseTrigger : MonoBehaviour {
 		if (singlePlayer) {
 					Instantiate (player1Paddle, p1Spawn.transform.position, Quaternion.identity);	
 				} else if (!singlePlayer) {
-			Instantiate(player1Paddle, p1Spawn.transform.position, Quaternion.identity);
-			Instantiate(player2Paddle, p2Spawn.transform.position, Quaternion.identity);
+			player1PaddleGO = Instantiate(player1Paddle, p1Spawn.transform.position, Quaternion.identity) as GameObject;
+			player2PaddleGO = Instantiate(player2Paddle, p2Spawn.transform.position, Quaternion.identity) as GameObject;
 		}
 		paddle1FrozenTime = paddleFrozenTimeSetPoint;
 		paddle2FrozenTime = paddleFrozenTimeSetPoint;
