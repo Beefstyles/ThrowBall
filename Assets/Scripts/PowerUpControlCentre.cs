@@ -14,12 +14,17 @@ public class PowerUpControlCentre : MonoBehaviour {
 	public int p1ExtendCount, p2ExtendCount;
 	public int p1ShrinkCount, p2ShrinkCount;
 	public float paddleSizeChangePowerupTime;
+	public GameObject wormholeObject;
+	public GameObject wormholeGOP1, wormholeGOP2;
+	public float pwrupFireSpeed;
+	public bool p1WormholeShot, p2WormholeShot;
+	public bool p1WormholePicked, p2WormholePicked;
 
 	void Start () {
 		LoseTrigger = GameObject.FindObjectOfType<LoseTrigger> ();
 		p1ExtendCount = 0;
 		p2ExtendCount = 0;
-		p1ShrinkCount = 0;
+		p1ShrinkCount = 5;
 		p2ShrinkCount = 0;
 	}
 
@@ -44,13 +49,34 @@ public class PowerUpControlCentre : MonoBehaviour {
 			LoseTrigger.player2PaddleGO.transform.localScale -= paddleSizeChangeVector;
 			changePaddle2ShrinkTime = paddleSizeChangePowerupTime;
 		}
-
 	}
 
-	
-	void Update(){
-		
-		if (paddle1Extd == true) {
+	public void WormHoleShot(string PlayerTag){
+		if (PlayerTag == "Player1") {
+						if (!p1WormholeShot) {
+								wormholeGOP1 = Instantiate (wormholeObject, LoseTrigger.player1PaddleGO.transform.position, Quaternion.identity) as GameObject;
+								wormholeGOP1.rigidbody2D.AddForce (Vector3.up * pwrupFireSpeed);
+								p1WormholeShot = true;
+						} else if (p1WormholeShot) {
+								wormholeGOP1.rigidbody2D.velocity = Vector3.zero;
+								wormholeGOP1.collider2D.isTrigger = true;
+						}
+				}
+		if (PlayerTag == "Player2") {
+		if (!p2WormholeShot) {
+			wormholeGOP2 = Instantiate (wormholeObject, LoseTrigger.player2PaddleGO.transform.position, Quaternion.identity) as GameObject;
+			wormholeGOP2.rigidbody2D.AddForce (Vector3.up * pwrupFireSpeed);
+			p2WormholeShot = true;
+		}
+		else if (p2WormholeShot) {
+			wormholeGOP2.rigidbody2D.velocity = Vector3.zero;
+			wormholeGOP2.collider2D.isTrigger = true;
+		}
+		}
+		}
+	void Update()
+	{
+			if (paddle1Extd == true) {
 			if (changePaddle1ExtdTime > 0) {
 				changePaddle1ExtdTime -= Time.deltaTime;
 			}

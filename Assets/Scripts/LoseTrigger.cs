@@ -19,6 +19,12 @@ public class LoseTrigger : MonoBehaviour {
 	public int player1Score;
 	public int player2Score;
 	public GameObject EndOfRoundsScreen;
+	public Text PlayerFinalWinText;
+	public Text P1WinFinal;
+	public Text P2WinFinal;
+	public Text WinsText;
+	public GameObject p1Light;
+	public GameObject p2Light;
 	//End Game Text
 
 	//Necessary Scripts
@@ -32,8 +38,6 @@ public class LoseTrigger : MonoBehaviour {
 	//End Spawnspots
 
 	//Player Gameobjects & Transforms
-	public GameObject p1Light;
-	public GameObject p2Light;
 	public GameObject player1Paddle;
 	public GameObject player2Paddle;
 	public GameObject player1PaddleGO; //Note only exists as a clone of the p1 paddle gameobject for extend/shrink
@@ -46,6 +50,7 @@ public class LoseTrigger : MonoBehaviour {
 	public GameObject powerUpMultiBall;
 	public GameObject powerUpExtendPaddle;
 	public GameObject powerUpShrinkPaddle;
+	public GameObject wormholePwrup;
 	//End Powerup prefabs
 
 	//Ball info
@@ -89,6 +94,10 @@ public class LoseTrigger : MonoBehaviour {
 		playerOneWinCounterText.text = "";
 		playerTwoWinCounterText.text = "";
 		colonText.text = "";
+		PlayerFinalWinText.text = "";
+		P1WinFinal.text = "";
+		P2WinFinal.text = "";
+		WinsText.text = "";
 		ballCount = 0;
 		player1Score = 0;
 		player2Score = 0;
@@ -109,7 +118,6 @@ public class LoseTrigger : MonoBehaviour {
 		paddle2Frozen = false;
 		ghostModeP1Active = false;
 		ghostModeP2Active = false;
-
 
 	}
 	
@@ -163,8 +171,20 @@ IEnumerator CountdownToRestart() {
 						}
 						Application.LoadLevel ("mainScene");
 				} else if (RoundCounter.roundNoCounter == RoundCounter.roundNoMax) {
-					EndOfRoundsScreen.gameObject.SetActive (true);
+				EndOfRoundsScreen.gameObject.SetActive (true);
+			if(RoundCounter.p1WinCounter > RoundCounter.p2WinCounter){
+				PlayerFinalWinText.text = "Player 1 Wins";
 				}
+			else if(RoundCounter.p1WinCounter < RoundCounter.p2WinCounter){
+				PlayerFinalWinText.text = "Player 2 Wins";
+			}
+			else if(RoundCounter.p1WinCounter == RoundCounter.p2WinCounter){
+				PlayerFinalWinText.text = "Draw";
+			}
+			WinsText.text = "Wins";
+					P1WinFinal.text = RoundCounter.p1WinCounter.ToString();
+					P2WinFinal.text = RoundCounter.p2WinCounter.ToString();
+				}	
 		}
 
 void Update(){
@@ -180,6 +200,7 @@ void Update(){
 		if (powerUpSpawnCooldown <= 0) {
 			PowerUpSpawn ();
 		}
+	
 	}
 
 
@@ -205,6 +226,9 @@ void PowerUpSpawn(){
 			break;
 		case(2):
 			Instantiate (powerUpShrinkPaddle, thisPowerUpSpawnSpot.transform.position, Quaternion.identity);
+			break;
+		case(3):
+			Instantiate (wormholePwrup, thisPowerUpSpawnSpot.transform.position, Quaternion.identity);
 			break;
 		}
 		powerUpSpawnRNG = Random.Range (0, 10);

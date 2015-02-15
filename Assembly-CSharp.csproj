@@ -46,15 +46,19 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BG_Movement.cs" />
      <Compile Include="Assets\Scripts\BallControl.cs" />
      <Compile Include="Assets\Scripts\LoseTrigger.cs" />
      <Compile Include="Assets\Scripts\PowerUpControlCentre.cs" />
      <Compile Include="Assets\Scripts\PowerUpSpawn.cs" />
      <Compile Include="Assets\Scripts\PowerUpSpawnSpots.cs" />
      <Compile Include="Assets\Scripts\SpawnSpot.cs" />
+     <Compile Include="Assets\Scripts\UI\MainMenuUIControl.cs" />
      <Compile Include="Assets\Scripts\UI\RoundCounter.cs" />
+     <Compile Include="Assets\Scripts\WormholeSpawnSpot.cs" />
      <Compile Include="Assets\Scripts\playerControl.cs" />
      <Compile Include="Assets\Scripts\powerUpControl.cs" />
+     <Compile Include="Assets\Scripts\wormholeControl.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>

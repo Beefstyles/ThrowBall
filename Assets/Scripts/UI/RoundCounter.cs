@@ -10,7 +10,7 @@ public class RoundCounter : MonoBehaviour {
 
 	void Start(){
 		DontDestroyOnLoad (this.gameObject);
-		roundNoMax = 1;
+		roundNoMax = 5;
 	}
 
 	public void Restart(){
