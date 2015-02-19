@@ -7,13 +7,14 @@ public class powerUpControl : MonoBehaviour {
 	public float powerUpSpeed;
 	PowerUpControlCentre powerUpControlCentreScript;
 	public AudioClip powerUpCollect;
-	//public SpriteRenderer p1LightSprite, p2LightSprite;
-	//public Sprite empty, wormHole;
+
 
 	void Start () {
 	LoseTrigger = GameObject.FindObjectOfType<LoseTrigger> ();
 	rigidbody2D.AddForce (-Vector2.up * powerUpSpeed * Random.Range (1, 5));
 	powerUpControlCentreScript = GameObject.FindObjectOfType<PowerUpControlCentre> ();
+	LoseTrigger.p1LightSprite = LoseTrigger.p1Light.GetComponentInChildren<SpriteRenderer>();
+	LoseTrigger.p2LightSprite = LoseTrigger.p2Light.GetComponentInChildren<SpriteRenderer>();
 	}
 	
 			
@@ -28,11 +29,13 @@ public class powerUpControl : MonoBehaviour {
 					powerUpControlCentreScript.PaddleSizeChange("Extend", 1);
 					powerUpControlCentreScript.paddle1Extd = true;
 					powerUpControlCentreScript.p1ExtendCount++;
+					LoseTrigger.p1LightSprite.sprite = LoseTrigger.extend;
 				}
 				else if (trigger.gameObject.tag == "Player2"){
 					powerUpControlCentreScript.PaddleSizeChange("Extend", 2);
 					powerUpControlCentreScript.paddle2Extd = true;
 					powerUpControlCentreScript.p2ExtendCount++;
+					LoseTrigger.p2LightSprite.sprite = LoseTrigger.extend;
 				}
 			break;
 			case("ShortenPaddle"):
@@ -40,24 +43,27 @@ public class powerUpControl : MonoBehaviour {
 					powerUpControlCentreScript.PaddleSizeChange("Shrink", 2);
 					powerUpControlCentreScript.paddle2Shrink = true;
 					powerUpControlCentreScript.p2ShrinkCount++;
+					LoseTrigger.p2LightSprite.sprite = LoseTrigger.shrink;
 				}
 				else if (trigger.gameObject.tag == "Player2"){
 					powerUpControlCentreScript.PaddleSizeChange("Shrink", 1);
 					powerUpControlCentreScript.paddle1Shrink = true;
 					powerUpControlCentreScript.p1ShrinkCount++;
+					LoseTrigger.p1LightSprite.sprite = LoseTrigger.shrink;
 				}
 			break;
 			case("Wormhole"):
 				if(trigger.gameObject.tag == "Player1"){
 					powerUpControlCentreScript.p1WormholePicked = true;
-					//p1LightSprite = LoseTrigger.p1Light.GetComponent<SpriteRenderer>();
-					//p1LightSprite.sprite = wormHole;
+					LoseTrigger.p1LightSprite.sprite = LoseTrigger.wormHole;
 				}
 				else if(trigger.gameObject.tag == "Player2"){
 					powerUpControlCentreScript.p2WormholePicked = true;
-					//p2LightSprite = LoseTrigger.p2Light.GetComponent<SpriteRenderer>();
-					//p2LightSprite.sprite = wormHole;
+					LoseTrigger.p2LightSprite.sprite = LoseTrigger.wormHole;
 				}
+			break;
+			case("Barrier"):
+
 				break;
 			}
 		AudioSource.PlayClipAtPoint(powerUpCollect, trigger.gameObject.transform.position);

@@ -25,6 +25,8 @@ public class LoseTrigger : MonoBehaviour {
 	public Text WinsText;
 	public GameObject p1Light;
 	public GameObject p2Light;
+	public SpriteRenderer p1LightSprite, p2LightSprite;
+	public Sprite empty, wormHole, multiBall, shrink, extend;
 	//End Game Text
 
 	//Necessary Scripts
@@ -218,7 +220,6 @@ void PowerUpSpawn(){
 		PowerUpSpawn thisPowerUpSpawnSpot = powerUpSpawnSpots [Random.Range (0, powerUpSpawnSpots.Length)];
 		switch (powerUpSpawnRNG) {
 		case(0):
-			Debug.Log("Spawn Multiball");
 			Instantiate (powerUpMultiBall, thisPowerUpSpawnSpot.transform.position, Quaternion.identity);
 			break;
 		case(1):

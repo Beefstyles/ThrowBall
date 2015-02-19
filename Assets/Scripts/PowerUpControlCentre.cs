@@ -4,6 +4,7 @@ using System.Collections;
 public class PowerUpControlCentre : MonoBehaviour {
 
 	LoseTrigger LoseTrigger;
+	wormholeControl wormholeControlPrefab;
 	public AudioClip powerUpCollect;
 	private float extendPaddleTime;
 	public Vector3 paddleSizeChangeVector;
@@ -19,13 +20,18 @@ public class PowerUpControlCentre : MonoBehaviour {
 	public float pwrupFireSpeed;
 	public bool p1WormholeShot, p2WormholeShot;
 	public bool p1WormholePicked, p2WormholePicked;
+	public GameObject lifelineBarrier;
+
 
 	void Start () {
 		LoseTrigger = GameObject.FindObjectOfType<LoseTrigger> ();
+		wormholeControlPrefab = GameObject.FindObjectOfType<wormholeControl> ();
 		p1ExtendCount = 0;
 		p2ExtendCount = 0;
 		p1ShrinkCount = 5;
 		p2ShrinkCount = 0;
+		p1WormholeShot = false;
+		p2WormholeShot = false;
 	}
 
 	public void Multiball (int ballNo){
@@ -40,11 +46,11 @@ public class PowerUpControlCentre : MonoBehaviour {
 		else if (ExtendOrShrink == "Extend" && playerNo == 2) {
 			LoseTrigger.player2PaddleGO.transform.localScale += paddleSizeChangeVector;
 			changePaddle2ExtdTime = paddleSizeChangePowerupTime;
-				}
+		}
 		else if (ExtendOrShrink == "Shrink" && playerNo == 1) {
 			LoseTrigger.player1PaddleGO.transform.localScale -= paddleSizeChangeVector;
 			changePaddle1ShrinkTime = paddleSizeChangePowerupTime;
-			}
+		}
 		else if (ExtendOrShrink == "Shrink" && playerNo == 2) {
 			LoseTrigger.player2PaddleGO.transform.localScale -= paddleSizeChangeVector;
 			changePaddle2ShrinkTime = paddleSizeChangePowerupTime;
@@ -57,9 +63,11 @@ public class PowerUpControlCentre : MonoBehaviour {
 								wormholeGOP1 = Instantiate (wormholeObject, LoseTrigger.player1PaddleGO.transform.position, Quaternion.identity) as GameObject;
 								wormholeGOP1.rigidbody2D.AddForce (Vector3.up * pwrupFireSpeed);
 								p1WormholeShot = true;
+								LoseTrigger.p1LightSprite.sprite = LoseTrigger.empty;
 						} else if (p1WormholeShot) {
-								wormholeGOP1.rigidbody2D.velocity = Vector3.zero;
-								wormholeGOP1.collider2D.isTrigger = true;
+				wormholeGOP1.rigidbody2D.velocity = Vector3.zero;
+				wormholeGOP1.collider2D.isTrigger = true;
+				wormholeControlPrefab.wormholeSpawned = true;
 						}
 				}
 		if (PlayerTag == "Player2") {
@@ -67,10 +75,12 @@ public class PowerUpControlCentre : MonoBehaviour {
 			wormholeGOP2 = Instantiate (wormholeObject, LoseTrigger.player2PaddleGO.transform.position, Quaternion.identity) as GameObject;
 			wormholeGOP2.rigidbody2D.AddForce (Vector3.up * pwrupFireSpeed);
 			p2WormholeShot = true;
+			LoseTrigger.p1LightSprite.sprite = LoseTrigger.empty;
 		}
 		else if (p2WormholeShot) {
 			wormholeGOP2.rigidbody2D.velocity = Vector3.zero;
 			wormholeGOP2.collider2D.isTrigger = true;
+			wormholeControlPrefab.wormholeSpawned = true;
 		}
 		}
 		}
@@ -85,6 +95,7 @@ public class PowerUpControlCentre : MonoBehaviour {
 				if(p1ExtendCount == 0){
 				PaddleSizeChange("Shrink", 1);
 				paddle1Extd = false;
+				LoseTrigger.p1LightSprite.sprite = LoseTrigger.empty;
 				}
 				else if(p1ExtendCount != 0){
 				PaddleSizeChange("Shrink", 1);
@@ -97,9 +108,10 @@ public class PowerUpControlCentre : MonoBehaviour {
 								changePaddle2ExtdTime -= Time.deltaTime;
 			} 			else if(changePaddle1ExtdTime <= 0){
 						p2ExtendCount--;
-						if(p1ExtendCount == 0){
+						if(p2ExtendCount == 0){
 						PaddleSizeChange("Shrink", 2);
-						paddle1Extd = false;
+						paddle2Extd = false;
+						LoseTrigger.p2LightSprite.sprite = LoseTrigger.empty;
 				}
 				else if(p1ExtendCount != 0){
 					PaddleSizeChange("Shrink", 2);
@@ -116,6 +128,7 @@ public class PowerUpControlCentre : MonoBehaviour {
 				if(p1ShrinkCount == 0){
 					PaddleSizeChange("Extend", 1);
 					paddle1Shrink = false;
+					LoseTrigger.p1LightSprite.sprite = LoseTrigger.empty;
 				}
 				else if(p1ShrinkCount != 0){
 					PaddleSizeChange("Extend", 1);
@@ -132,6 +145,7 @@ public class PowerUpControlCentre : MonoBehaviour {
 				if(p2ShrinkCount == 0){
 					PaddleSizeChange("Extend", 2);
 					paddle2Shrink = false;
+					LoseTrigger.p2LightSprite.sprite = LoseTrigger.empty;
 				}
 				else if(p2ShrinkCount != 0){
 					PaddleSizeChange("Extend", 2);

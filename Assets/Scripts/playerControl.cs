@@ -118,7 +118,7 @@ void Update()
 						if (gameObject.tag == "Player1") {
 								if (powerUpControlCentre.p1WormholePicked == true) {
 										{
-												powerUpControlCentre.WormHoleShot ("Player1");
+								powerUpControlCentre.WormHoleShot ("Player1");
 										} 
 								}
 						}
@@ -126,7 +126,8 @@ void Update()
 				if (Input.GetButtonDown ("FirePwrup2")) {
 						if (gameObject.tag == "Player2") {
 								if (powerUpControlCentre.p2WormholePicked == true) 
-										 {	powerUpControlCentre.WormHoleShot ("Player2");
+										 {	
+								powerUpControlCentre.WormHoleShot ("Player2");
 										} 
 								}
 			

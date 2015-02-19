@@ -44,11 +44,11 @@
 Assets/Scripts/BG_Movement.cs
 Assets/Scripts/BallControl.cs
 Assets/Scripts/LoseTrigger.cs
-Assets/Scripts/MainMenuUIControl.cs
 Assets/Scripts/PowerUpControlCentre.cs
 Assets/Scripts/PowerUpSpawn.cs
 Assets/Scripts/PowerUpSpawnSpots.cs
 Assets/Scripts/SpawnSpot.cs
+Assets/Scripts/UI/MainMenuUIControl.cs
 Assets/Scripts/UI/RoundCounter.cs
 Assets/Scripts/WormholeSpawnSpot.cs
 Assets/Scripts/playerControl.cs
