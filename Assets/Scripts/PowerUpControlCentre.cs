@@ -4,7 +4,6 @@ using System.Collections;
 public class PowerUpControlCentre : MonoBehaviour {
 
 	LoseTrigger LoseTrigger;
-	wormholeControl wormholeControlPrefab;
 	public AudioClip powerUpCollect;
 	private float extendPaddleTime;
 	public Vector3 paddleSizeChangeVector;
@@ -18,14 +17,17 @@ public class PowerUpControlCentre : MonoBehaviour {
 	public GameObject wormholeObject;
 	public GameObject wormholeGOP1, wormholeGOP2;
 	public float pwrupFireSpeed;
-	public bool p1WormholeShot, p2WormholeShot;
 	public bool p1WormholePicked, p2WormholePicked;
+	public bool p1WormholeShot, p2WormholeShot;
+	public bool wormholeSpawned;
+	public bool p1Lifelinepicked, p2Lifelinepicked;
 	public GameObject lifelineBarrier;
+	public float lifeLinelifeTime;
+	public float wormholeSpawnlifeTime;
 
 
 	void Start () {
 		LoseTrigger = GameObject.FindObjectOfType<LoseTrigger> ();
-		wormholeControlPrefab = GameObject.FindObjectOfType<wormholeControl> ();
 		p1ExtendCount = 0;
 		p2ExtendCount = 0;
 		p1ShrinkCount = 5;
@@ -36,6 +38,20 @@ public class PowerUpControlCentre : MonoBehaviour {
 
 	public void Multiball (int ballNo){
 		LoseTrigger.BallSpawn(ballNo);
+	}
+
+	public void lifeLineSpawn(int playerNo){
+		lifeLinelifeTime = 5F;
+		if (playerNo == 1) {
+			lifelineBarrier.SetActive (true);
+			p1Lifelinepicked = false;
+				}
+		else if (playerNo == 2) {
+			lifelineBarrier.SetActive (true);
+			p2Lifelinepicked = false;
+
+		}
+		LoseTrigger.p1LightSprite.sprite = LoseTrigger.empty;
 	}
 
 	public void PaddleSizeChange(string ExtendOrShrink, int playerNo){
@@ -67,11 +83,11 @@ public class PowerUpControlCentre : MonoBehaviour {
 						} else if (p1WormholeShot) {
 				wormholeGOP1.rigidbody2D.velocity = Vector3.zero;
 				wormholeGOP1.collider2D.isTrigger = true;
-				wormholeControlPrefab.wormholeSpawned = true;
 						}
 				}
 		if (PlayerTag == "Player2") {
 		if (!p2WormholeShot) {
+			
 			wormholeGOP2 = Instantiate (wormholeObject, LoseTrigger.player2PaddleGO.transform.position, Quaternion.identity) as GameObject;
 			wormholeGOP2.rigidbody2D.AddForce (Vector3.up * pwrupFireSpeed);
 			p2WormholeShot = true;
@@ -80,9 +96,11 @@ public class PowerUpControlCentre : MonoBehaviour {
 		else if (p2WormholeShot) {
 			wormholeGOP2.rigidbody2D.velocity = Vector3.zero;
 			wormholeGOP2.collider2D.isTrigger = true;
-			wormholeControlPrefab.wormholeSpawned = true;
+			p2WormholeShot = false;
 		}
 		}
+		wormholeSpawnlifeTime = 5F;
+		wormholeSpawned = true;
 		}
 	void Update()
 	{

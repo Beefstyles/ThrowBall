@@ -63,8 +63,15 @@ public class powerUpControl : MonoBehaviour {
 				}
 			break;
 			case("Barrier"):
-
-				break;
+				if(trigger.gameObject.tag == "Player1"){
+					powerUpControlCentreScript.p1Lifelinepicked = true;
+					LoseTrigger.p1LightSprite.sprite = LoseTrigger.lifeLine;
+				}
+				else if(trigger.gameObject.tag == "Player2"){
+					powerUpControlCentreScript.p2Lifelinepicked = true;
+					LoseTrigger.p2LightSprite.sprite = LoseTrigger.lifeLine;
+				}
+			break;
 			}
 		AudioSource.PlayClipAtPoint(powerUpCollect, trigger.gameObject.transform.position);
 		}

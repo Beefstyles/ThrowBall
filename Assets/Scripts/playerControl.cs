@@ -116,23 +116,29 @@ void Update()
 				}
 				if (Input.GetButtonDown ("FirePwrup")) {
 						if (gameObject.tag == "Player1") {
-								if (powerUpControlCentre.p1WormholePicked == true) {
-										{
-								powerUpControlCentre.WormHoleShot ("Player1");
-										} 
-								}
-						}
+								if (powerUpControlCentre.p1WormholePicked == true){ 
+												powerUpControlCentre.WormHoleShot ("Player1");
 				}
-				if (Input.GetButtonDown ("FirePwrup2")) {
-						if (gameObject.tag == "Player2") {
-								if (powerUpControlCentre.p2WormholePicked == true) 
-										 {	
-								powerUpControlCentre.WormHoleShot ("Player2");
-										} 
-								}
 			
-						}
-				}
+										if (powerUpControlCentre.p1Lifelinepicked == true) {
+														powerUpControlCentre.lifeLineSpawn (1);
+												}
+										}
+								}
+				
+						if (Input.GetButtonDown ("FirePwrup2")) {
+								if (gameObject.tag == "Player2") {
+										if (powerUpControlCentre.p2WormholePicked == true) {	
+												powerUpControlCentre.WormHoleShot ("Player2");
+										} 
+										if (powerUpControlCentre.p2Lifelinepicked == true) {
+														powerUpControlCentre.lifeLineSpawn (2);
+												}
+										}
+			
+								}
+			}
+				
 
 void FixedUpdate ()
 	{

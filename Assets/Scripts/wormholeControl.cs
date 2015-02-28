@@ -4,14 +4,13 @@ using System.Collections;
 public class wormholeControl : MonoBehaviour {
 
 	WormholeSpawnSpot[] wormholeSpawnSpots;
-	public float lifeTime;
-	public bool wormholeSpawned;
-	private bool localWormholeSpawned;
+	PowerUpControlCentre powerupControlCentre;
+
 	
 	void Start () {
-		wormholeSpawned = false;
 		LineRenderer lr = GetComponent<LineRenderer>();
 		lr.enabled = false;
+		powerupControlCentre = GameObject.FindObjectOfType<PowerUpControlCentre> ();
 		wormholeSpawnSpots = GameObject.FindObjectsOfType<WormholeSpawnSpot> ();
 	}
 
@@ -33,18 +32,26 @@ public class wormholeControl : MonoBehaviour {
 			lr.SetWidth(10F,10F);
 			lr.SetColors(Color.blue, Color.green);
 			Destroy(trigger.gameObject);
-			lifeTime = 0;
+			powerupControlCentre.wormholeSpawnlifeTime = 0;
 		}
 	}
 
 	void Update(){
 
-		if (wormholeSpawned == true) {
-			lifeTime -= Time.deltaTime;
+		if (powerupControlCentre.wormholeSpawned == true) {
+			powerupControlCentre.wormholeSpawnlifeTime -= Time.deltaTime;
 		}
 
-		if (lifeTime <= 0) {
+		if (powerupControlCentre.wormholeSpawnlifeTime <= 0) {
 			Destroy(this.gameObject);
+			if(powerupControlCentre.p1WormholePicked == true && powerupControlCentre.p1WormholeShot == true){
+			powerupControlCentre.p1WormholePicked = false;
+			powerupControlCentre.p1WormholeShot = false;
+			}
+			if(powerupControlCentre.p2WormholePicked == true && powerupControlCentre.p2WormholeShot == true){
+				powerupControlCentre.p2WormholePicked = false;
+				powerupControlCentre.p2WormholeShot = false;
+			}
 			}
 		}
 }

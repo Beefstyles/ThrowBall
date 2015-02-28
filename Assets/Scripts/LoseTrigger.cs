@@ -26,7 +26,7 @@ public class LoseTrigger : MonoBehaviour {
 	public GameObject p1Light;
 	public GameObject p2Light;
 	public SpriteRenderer p1LightSprite, p2LightSprite;
-	public Sprite empty, wormHole, multiBall, shrink, extend;
+	public Sprite empty, wormHole, multiBall, shrink, extend, lifeLine;
 	//End Game Text
 
 	//Necessary Scripts
@@ -42,6 +42,7 @@ public class LoseTrigger : MonoBehaviour {
 	//Player Gameobjects & Transforms
 	public GameObject player1Paddle;
 	public GameObject player2Paddle;
+	public GameObject player2PaddleAI;
 	public GameObject player1PaddleGO; //Note only exists as a clone of the p1 paddle gameobject for extend/shrink
 	public GameObject player2PaddleGO; //Note only exists as a clone of the p1 paddle gameobject for extend/shrink
 	public Transform p1Spawn;
@@ -53,6 +54,7 @@ public class LoseTrigger : MonoBehaviour {
 	public GameObject powerUpExtendPaddle;
 	public GameObject powerUpShrinkPaddle;
 	public GameObject wormholePwrup;
+	public GameObject barrierPwrup;
 	//End Powerup prefabs
 
 	//Ball info
@@ -112,7 +114,9 @@ public class LoseTrigger : MonoBehaviour {
 					Instantiate (player1Paddle, p1Spawn.transform.position, Quaternion.identity);	
 				} else if (!singlePlayer) {
 			player1PaddleGO = Instantiate(player1Paddle, p1Spawn.transform.position, Quaternion.identity) as GameObject;
-			player2PaddleGO = Instantiate(player2Paddle, p2Spawn.transform.position, Quaternion.identity) as GameObject;
+			//player2PaddleGO = Instantiate(player2Paddle, p2Spawn.transform.position, Quaternion.identity) as GameObject;
+			//player2PaddleAI
+			player2PaddleGO = Instantiate(player2PaddleAI, p2Spawn.transform.position, Quaternion.identity) as GameObject;
 		}
 		paddle1FrozenTime = paddleFrozenTimeSetPoint;
 		paddle2FrozenTime = paddleFrozenTimeSetPoint;
@@ -231,7 +235,10 @@ void PowerUpSpawn(){
 		case(3):
 			Instantiate (wormholePwrup, thisPowerUpSpawnSpot.transform.position, Quaternion.identity);
 			break;
-		}
+		case(4):
+			Instantiate (barrierPwrup, thisPowerUpSpawnSpot.transform.position, Quaternion.identity);
+			break;
+	}
 		powerUpSpawnRNG = Random.Range (0, 10);
 	}
 }
