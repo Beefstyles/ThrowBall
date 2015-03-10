@@ -42,7 +42,8 @@ public class LoseTrigger : MonoBehaviour {
 	//Player Gameobjects & Transforms
 	public GameObject player1Paddle;
 	public GameObject player2Paddle;
-	public GameObject player2PaddleAI;
+	public GameObject player1PaddleAI;
+    public GameObject player2PaddleAI;
 	public GameObject player1PaddleGO; //Note only exists as a clone of the p1 paddle gameobject for extend/shrink
 	public GameObject player2PaddleGO; //Note only exists as a clone of the p1 paddle gameobject for extend/shrink
 	public Transform p1Spawn;
@@ -63,12 +64,16 @@ public class LoseTrigger : MonoBehaviour {
 
 	//Gameplay bools
 	public bool singlePlayer;
+    public bool AIMatch;
 	public bool player1Wins;
 	public bool player2Wins;
 	public bool paddle1Frozen;
 	public bool paddle2Frozen;
 	public bool ghostModeP1Active;
 	public bool ghostModeP2Active;
+    public bool ballInLeftQuadrant;
+    public bool ballInRightQuadrant;
+   
 	//End Gameplay bools
 
 	//Gameplay floats & ints
@@ -109,15 +114,23 @@ public class LoseTrigger : MonoBehaviour {
 		player1_CountText.text = player1Score.ToString();
 		player2_CountText.text = player2Score.ToString();
 		BallSpawn (1);
-		singlePlayer = false;
+		//singlePlayer = true;
+        AIMatch = true;
 		if (singlePlayer) {
-					Instantiate (player1Paddle, p1Spawn.transform.position, Quaternion.identity);	
-				} else if (!singlePlayer) {
+					player1PaddleGO = Instantiate(player1Paddle, p1Spawn.transform.position, Quaternion.identity) as GameObject;
+					player2PaddleGO = Instantiate(player2PaddleAI, p2Spawn.transform.position, Quaternion.identity) as GameObject;
+        }
+        else if (!singlePlayer && !AIMatch)
+        {
 			player1PaddleGO = Instantiate(player1Paddle, p1Spawn.transform.position, Quaternion.identity) as GameObject;
-			//player2PaddleGO = Instantiate(player2Paddle, p2Spawn.transform.position, Quaternion.identity) as GameObject;
-			//player2PaddleAI
-			player2PaddleGO = Instantiate(player2PaddleAI, p2Spawn.transform.position, Quaternion.identity) as GameObject;
+			player2PaddleGO = Instantiate(player2Paddle, p2Spawn.transform.position, Quaternion.identity) as GameObject;
 		}
+
+        else if (!singlePlayer && AIMatch)
+        {
+            player1PaddleGO = Instantiate(player1PaddleAI, p1Spawn.transform.position, Quaternion.identity) as GameObject;
+            player2PaddleGO = Instantiate(player2PaddleAI, p2Spawn.transform.position, Quaternion.identity) as GameObject;
+        }
 		paddle1FrozenTime = paddleFrozenTimeSetPoint;
 		paddle2FrozenTime = paddleFrozenTimeSetPoint;
 		paddle1Frozen = false;
@@ -214,7 +227,19 @@ public void BallSpawn(int numberReq){
 		for (int i = numberReq; i > 0; i--){
 		SpawnSpot mySpawnSpot = spawnSpots [Random.Range (0, spawnSpots.Length)];
 		Instantiate(gameBall, mySpawnSpot.transform.position,Quaternion.identity);
+        if (mySpawnSpot.gameObject.tag == "LeftQuadrant")
+        {
+            Debug.Log("Ball in Left");
+           ballInLeftQuadrant = true;
+        }
+        else if (mySpawnSpot.gameObject.tag == "RightQuadrant")
+        {
+            Debug.Log("Ball in Right");
+           ballInRightQuadrant = true;
+        }
+        
 	}
+        
 		ballCount = ballCount + numberReq;
 }
 

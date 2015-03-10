@@ -77,25 +77,25 @@ public class PowerUpControlCentre : MonoBehaviour {
 		if (PlayerTag == "Player1") {
 						if (!p1WormholeShot) {
 								wormholeGOP1 = Instantiate (wormholeObject, LoseTrigger.player1PaddleGO.transform.position, Quaternion.identity) as GameObject;
-								wormholeGOP1.rigidbody2D.AddForce (Vector3.up * pwrupFireSpeed);
+								wormholeGOP1.GetComponent<Rigidbody2D>().AddForce (Vector3.up * pwrupFireSpeed);
 								p1WormholeShot = true;
 								LoseTrigger.p1LightSprite.sprite = LoseTrigger.empty;
 						} else if (p1WormholeShot) {
-				wormholeGOP1.rigidbody2D.velocity = Vector3.zero;
-				wormholeGOP1.collider2D.isTrigger = true;
+				wormholeGOP1.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+				wormholeGOP1.GetComponent<Collider2D>().isTrigger = true;
 						}
 				}
 		if (PlayerTag == "Player2") {
 		if (!p2WormholeShot) {
 			
 			wormholeGOP2 = Instantiate (wormholeObject, LoseTrigger.player2PaddleGO.transform.position, Quaternion.identity) as GameObject;
-			wormholeGOP2.rigidbody2D.AddForce (Vector3.up * pwrupFireSpeed);
+			wormholeGOP2.GetComponent<Rigidbody2D>().AddForce (Vector3.up * pwrupFireSpeed);
 			p2WormholeShot = true;
 			LoseTrigger.p1LightSprite.sprite = LoseTrigger.empty;
 		}
 		else if (p2WormholeShot) {
-			wormholeGOP2.rigidbody2D.velocity = Vector3.zero;
-			wormholeGOP2.collider2D.isTrigger = true;
+			wormholeGOP2.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+			wormholeGOP2.GetComponent<Collider2D>().isTrigger = true;
 			p2WormholeShot = false;
 		}
 		}

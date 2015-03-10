@@ -11,7 +11,7 @@ public class powerUpControl : MonoBehaviour {
 
 	void Start () {
 	LoseTrigger = GameObject.FindObjectOfType<LoseTrigger> ();
-	rigidbody2D.AddForce (-Vector2.up * powerUpSpeed * Random.Range (1, 5));
+	GetComponent<Rigidbody2D>().AddForce (-Vector2.up * powerUpSpeed * Random.Range (1, 5));
 	powerUpControlCentreScript = GameObject.FindObjectOfType<PowerUpControlCentre> ();
 	LoseTrigger.p1LightSprite = LoseTrigger.p1Light.GetComponentInChildren<SpriteRenderer>();
 	LoseTrigger.p2LightSprite = LoseTrigger.p2Light.GetComponentInChildren<SpriteRenderer>();
